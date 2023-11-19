@@ -5,8 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile Cards</title>
 </head>
+<style>
+    .card-container {
+        display: flex;
+    }
+</style>
 <body>
     <div class="card-container">
     </div>
+
+
+    <script>
+        async function getProfiles() {
+            const response = await fetch("https://randomuser.me/api/?results=3")
+            const profiles = await response.json()
+            console.log(profiles)
+            return profiles
+        }
+
+        getProfiles()
+    </script>
 </body>
 </html>
