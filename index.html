@@ -16,11 +16,31 @@
 
 
     <script>
-        async function getProfiles() {
+        async function fetchProfiles() {
             const response = await fetch("https://randomuser.me/api/?results=3")
             const profiles = await response.json()
             console.log(profiles)
             return profiles
+        }
+
+        // fetchProfiles()
+        // image, address, country, phone, name
+        const getProfiles = async () => {
+            const data = await fetchProfiles()
+            const profiles = data.results
+            profiles.forEach(profile => {
+                const markup = `
+                    <div class="card">
+                        <img src="${profile.picture.medium}" alt="Profile Picture">
+                        <p>${profile.name.title} ${profile.name.first} ${profile.name.last}</p>
+                        <p>${profile.location.street.number} ${profile.location.street.name}, ${profile.location.city}</p>
+                        <p>${profile.location.country}</p>
+                        <p>Phone: ${profile.phone}</p>
+                    </div>
+                `
+                document.querySelector('.card-container').insertAdjacentHTML('beforeend', markup)
+            })
+            console.log(profiles)
         }
 
         getProfiles()
